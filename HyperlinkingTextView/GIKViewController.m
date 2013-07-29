@@ -41,7 +41,7 @@
 - (void)highlightText
 {
     // Note that "sed do" wraps over two lines, but only "sed" is highlighted - that's because firstRectForRange can't span multiple lines.
-    NSArray *links = @[@"dolor sit", @"sed do", @"magna aliqua"];
+    NSArray *links = @[@"ipsum dolor sit", @"sed do", @"magna aliqua"];
 
     for (NSString *link in links)
     {
