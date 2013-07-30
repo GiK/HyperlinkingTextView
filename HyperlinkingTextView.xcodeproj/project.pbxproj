@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F861D1A317A6EDDF00998C1D /* GIKTextLink.m in Sources */ = {isa = PBXBuildFile; fileRef = F861D1A217A6EDDF00998C1D /* GIKTextLink.m */; };
 		F872E60017A31CB800A3C9F9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F872E5FF17A31CB800A3C9F9 /* UIKit.framework */; };
 		F872E60217A31CB800A3C9F9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F872E60117A31CB800A3C9F9 /* Foundation.framework */; };
 		F872E60417A31CB800A3C9F9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F872E60317A31CB800A3C9F9 /* CoreGraphics.framework */; };
@@ -22,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F861D1A117A6EDDF00998C1D /* GIKTextLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GIKTextLink.h; sourceTree = "<group>"; };
+		F861D1A217A6EDDF00998C1D /* GIKTextLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GIKTextLink.m; sourceTree = "<group>"; };
 		F872E5FC17A31CB800A3C9F9 /* HyperlinkingTextView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HyperlinkingTextView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F872E5FF17A31CB800A3C9F9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F872E60117A31CB800A3C9F9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -93,6 +96,8 @@
 				F872E61B17A31CB800A3C9F9 /* GIKViewController.m */,
 				F872E62217A6A53500A3C9F9 /* GIKTextView.h */,
 				F872E62317A6A53500A3C9F9 /* GIKTextView.m */,
+				F861D1A117A6EDDF00998C1D /* GIKTextLink.h */,
+				F861D1A217A6EDDF00998C1D /* GIKTextLink.m */,
 				F872E60617A31CB800A3C9F9 /* Supporting Files */,
 			);
 			path = HyperlinkingTextView;
@@ -183,6 +188,7 @@
 				F872E61017A31CB800A3C9F9 /* GIKAppDelegate.m in Sources */,
 				F872E61C17A31CB800A3C9F9 /* GIKViewController.m in Sources */,
 				F872E62417A6A53500A3C9F9 /* GIKTextView.m in Sources */,
+				F861D1A317A6EDDF00998C1D /* GIKTextLink.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +311,7 @@
 				F872E62117A31CB800A3C9F9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

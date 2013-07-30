@@ -8,14 +8,14 @@
 
 #import "GIKViewController.h"
 #import "GIKTextView.h"
+#import "GIKTextLink.h"
 
 @interface GIKViewController () <GIKHitTestDelegate>
 
 @property (weak, nonatomic) IBOutlet GIKTextView *textView;
+@property (weak, nonatomic) IBOutlet UILabel *label;
+@property (strong, nonatomic) NSMutableSet *textLinks;
 
-@property (assign, nonatomic) CGRect linkRect;
-
-@property (strong, nonatomic) NSMutableSet *linkRects;
 @end
 
 @implementation GIKViewController
@@ -23,8 +23,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    _linkRects = [[NSMutableSet alloc] init];
+
+    _textLinks = [[NSMutableSet alloc] init];    
     self.textView.hitTestDelegate = self;
     self.textView.text = @"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 }
@@ -45,19 +45,19 @@
 
     for (NSString *link in links)
     {
-        [self searchForSubstring:link inTextView:self.textView highlight:YES tag:([links indexOfObject:link] + 1)];
+        CGRect rect = [self rectForSubstring:link inTextView:self.textView];
+        
+        if (!CGRectIsNull(rect))
+        {
+            GIKTextLink *textLink = [[GIKTextLink alloc] init];
+            textLink.rectValue = [NSValue valueWithCGRect:rect];
+            textLink.text = link;
+            
+            [self.textLinks addObject:textLink];
+            
+            [self highlightRect:rect inView:self.textView tag:([links indexOfObject:link] + 1)];
+        }
     }
-}
-
-- (void)searchForSubstring:(NSString *)substring inTextView:(UITextView *)textView highlight:(BOOL)highlight tag:(NSInteger)tag
-{
-    CGRect linkRect = [self rectForSubstring:substring inTextView:textView];
-    if (highlight)
-    {
-        [self highlightRect:linkRect inView:textView tag:tag];
-    }
-    
-    [self.linkRects addObject:[NSValue valueWithCGRect:linkRect]];
 }
 
 - (CGRect)rectForSubstring:(NSString *)substring inTextView:(UITextView *)textView
@@ -94,15 +94,16 @@
 
 - (void)textView:(GIKTextView *)textView didReceiveTouchAtPoint:(CGPoint)point
 {
-    for (NSValue *rectValue in self.linkRects)
+    for (GIKTextLink *textLink in self.textLinks)
     {
-        CGRect rect = [rectValue CGRectValue];
-        
+        CGRect rect = [textLink.rectValue CGRectValue];
         if (CGRectContainsPoint(rect, point))
         {
-            NSLog(@"link tapped!");
+            self.label.text = textLink.text;
+            return;
         }
     }
+    self.label.text = @"Tap a link";
 }
 
 @end
