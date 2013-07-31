@@ -1,10 +1,10 @@
 # HyperlinkingTextView
 
-Why implement a third-party library to add hypertext-like links to UITextViews when you can do it yourself?
+Add hyperlink-like behaviour to substrings in a UITextView. 
 
 ## What This Is
 
-I really don't think this warrants a library of its own, so this is just a demonstration of how to implement hyperlinking and tap-handling in a UITextView.
+A demonstration of how to implement hyperlinks in a UITextView using methods found in the UITextInput protocol. A UITextView subclass provides a callback whenever a touch is detected within its bounds.
 
 ## What This Isn't
 
