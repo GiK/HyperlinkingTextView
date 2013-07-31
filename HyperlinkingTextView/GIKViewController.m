@@ -42,7 +42,8 @@
 
 - (void)highlightLinks
 {
-    NSArray *links = @[@"ipsum dolor sit", @"you won't find me", @"sed do", @"magna aliqua", @"ipsum dolor sit"];
+    // When running, note that "sed do eiusmod" spans multiple lines and is only partially highlighted. This is because of a limitation in UITextInput's firstRectForRange:
+    NSArray *links = @[@"ipsum dolor sit", @"you won't find me", @"sed do eiusmod", @"magna aliqua", @"ipsum dolor sit"];
 
     NSUInteger index = 1;
     for (NSString *link in links)
