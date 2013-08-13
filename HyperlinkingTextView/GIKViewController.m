@@ -51,7 +51,7 @@
 
 - (BOOL)canBecomeFirstResponder
 {
-    return YES; // required so that UIMenuController can displayed.
+    return YES; // required so that UIMenuController can be displayed.
 }
 
 - (void)highlightLinks
