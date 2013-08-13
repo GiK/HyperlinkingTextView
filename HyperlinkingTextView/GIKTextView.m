@@ -32,17 +32,30 @@
 
 - (void)setupGestures
 {
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTapGesture:)];
+    [doubleTap setNumberOfTapsRequired:2];
+    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    [singleTap setNumberOfTapsRequired:1];
+    [singleTap requireGestureRecognizerToFail:doubleTap];
+    
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGesture:)];
     
-    [self addGestureRecognizer:tap];
+    [self addGestureRecognizer:singleTap];
+    [self addGestureRecognizer:doubleTap];
     [self addGestureRecognizer:longPress];
 }
 
 - (void)handleTapGesture:(UIGestureRecognizer *)recognizer
 {
-    [self.hitTestDelegate textView:self didReceiveTapGestureAtPoint:[recognizer locationInView:self]];
+    [self.hitTestDelegate textView:self didReceiveTapGestureAtPoint:[recognizer locationInView:self] numberOfTaps:1];
 }
+
+- (void)handleDoubleTapGesture:(UIGestureRecognizer *)recognizer
+{
+    [self.hitTestDelegate textView:self didReceiveTapGestureAtPoint:[recognizer locationInView:self] numberOfTaps:2];
+}
+
 
 - (void)handleLongPressGesture:(UIGestureRecognizer *)recognizer
 {

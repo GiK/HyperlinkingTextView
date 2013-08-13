@@ -170,12 +170,12 @@
     [[UIMenuController sharedMenuController] setMenuItems:nil];
 }
 
-- (void)textView:(GIKTextView *)textView didReceiveTapGestureAtPoint:(CGPoint)point
+- (void)textView:(GIKTextView *)textView didReceiveTapGestureAtPoint:(CGPoint)point numberOfTaps:(NSUInteger)taps
 {
     if ([self gestureWasLocatedWithinTextLinkAtPoint:point])
     {
         [self animateViewWithTag:self.tappedTextLink.tag];
-        self.label.text = self.tappedTextLink.text;
+        self.label.text = [NSString stringWithFormat:@"%@ \"%@\"", taps > 1 ? @"Double tapped" : @"Tapped", self.tappedTextLink.text];
     }
 }
 
