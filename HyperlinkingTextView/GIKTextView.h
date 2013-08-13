@@ -19,7 +19,9 @@
 
 
 @protocol GIKHitTestDelegate <NSObject>
+@optional
 
-- (void)textView:(GIKTextView *)textView didReceiveTouchAtPoint:(CGPoint)point;
+- (void)textView:(GIKTextView *)textView didReceiveTapGestureAtPoint:(CGPoint)point;
+- (void)textView:(GIKTextView *)textView didReceiveLongPressGestureAtPoint:(CGPoint)point;
 
 @end

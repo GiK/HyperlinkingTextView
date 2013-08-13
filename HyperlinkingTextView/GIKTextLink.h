@@ -11,6 +11,7 @@
 @interface GIKTextLink : NSObject
 
 @property (copy, nonatomic) NSString *text;
+@property (copy, nonatomic) NSURL *url;
 @property (strong, nonatomic) NSValue *rectValue;
 @property (assign, nonatomic) NSUInteger tag;
 

@@ -8,37 +8,48 @@
 
 #import "GIKTextView.h"
 
+@interface GIKTextView ()
+
+@end
+
+
 @implementation GIKTextView
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
+    if (self)
+    {
+        [self setupGestures];
     }
     return self;
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)awakeFromNib
 {
-    UITouch *touch = [touches anyObject];
-    CGPoint touchPoint = [touch locationInView:self];
-    [self.hitTestDelegate textView:self didReceiveTouchAtPoint:touchPoint];
+    [self setupGestures];
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)setupGestures
 {
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGesture:)];
     
+    [self addGestureRecognizer:tap];
+    [self addGestureRecognizer:longPress];
 }
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)handleTapGesture:(UIGestureRecognizer *)recognizer
 {
-    
+    [self.hitTestDelegate textView:self didReceiveTapGestureAtPoint:[recognizer locationInView:self]];
 }
 
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)handleLongPressGesture:(UIGestureRecognizer *)recognizer
 {
-    
+    if (recognizer.state == UIGestureRecognizerStateEnded)
+    {
+        [self.hitTestDelegate textView:self didReceiveLongPressGestureAtPoint:[recognizer locationInView:self]];
+    }
 }
 
 @end

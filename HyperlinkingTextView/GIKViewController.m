@@ -17,6 +17,11 @@
 @property (strong, nonatomic) NSMutableArray *textLinks;
 @property (strong, nonatomic) UITextPosition *startPosition;
 
+@property (assign, nonatomic) NSInteger tappedLinkTag;
+@property (strong, nonatomic) GIKTextLink *tappedTextLink;
+
+@property (strong, nonatomic) UIMenuItem *linkMenuItem;
+
 @end
 
 @implementation GIKViewController
@@ -28,7 +33,9 @@
     self.textView.hitTestDelegate = self;
     self.textView.text = @"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit er elit lamet.";
     
-    _textLinks = [[NSMutableArray alloc] init];
+    self.textLinks = [[NSMutableArray alloc] init];
+    
+    self.linkMenuItem = [[UIMenuItem alloc] initWithTitle:@"Copy Link" action:@selector(copyLink:)];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -38,6 +45,11 @@
     
     // We can only calculate UITextPosition and UITextRange when the text view is on-screen. We won't get the correct rects if we call this in viewWillAppear:
     [self highlightLinks];
+}
+
+- (BOOL)canBecomeFirstResponder
+{
+    return YES; // required so that UIMenuController can displayed.
 }
 
 - (void)highlightLinks
@@ -56,6 +68,7 @@
             textLink.rectValue = [NSValue valueWithCGRect:rect];
             textLink.text = link;
             textLink.tag = index;
+            textLink.url = [NSURL URLWithString:@"http://www.apple.com"];
             
             [self.textLinks addObject:textLink];
             [self highlightRect:rect inView:self.textView tag:index];
@@ -127,22 +140,53 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-#pragma mark - GIKHitTestDelegate
-
-- (void)textView:(GIKTextView *)textView didReceiveTouchAtPoint:(CGPoint)point
+- (void)copyLink:(id)sender
 {
+    NSLog(@"pretending we're copying %@", [self.tappedTextLink.url absoluteString]);
+}
+
+- (BOOL)gestureWasLocatedWithinTextLinkAtPoint:(CGPoint)point
+{
+    [[UIMenuController sharedMenuController] setMenuItems:nil];
+    
     for (GIKTextLink *textLink in self.textLinks)
     {
         CGRect rect = [textLink.rectValue CGRectValue];
         if (CGRectContainsPoint(rect, point))
         {
-            [self animateViewWithTag:textLink.tag];
-            self.label.text = textLink.text;
-            return;
+            self.tappedTextLink = textLink;
+            return YES;
         }
     }
+    
     self.label.text = @"Tap a link";
+    self.tappedTextLink = nil;
+    return NO;
+}
+
+
+#pragma mark - GIKHitTestDelegate
+
+- (void)textView:(GIKTextView *)textView didReceiveTapGestureAtPoint:(CGPoint)point
+{
+    if ([self gestureWasLocatedWithinTextLinkAtPoint:point])
+    {
+        [self animateViewWithTag:self.tappedTextLink.tag];
+        self.label.text = self.tappedTextLink.text;
+    }
+}
+
+- (void)textView:(GIKTextView *)textView didReceiveLongPressGestureAtPoint:(CGPoint)point
+{
+    if ([self gestureWasLocatedWithinTextLinkAtPoint:point])
+    {
+        [self animateViewWithTag:self.tappedTextLink.tag];
+        self.label.text = [NSString stringWithFormat:@"Long press \"%@\"", self.tappedTextLink.text];
+
+        [[UIMenuController sharedMenuController] setMenuItems:@[self.linkMenuItem]];
+        [[UIMenuController sharedMenuController] setTargetRect:[self.tappedTextLink.rectValue CGRectValue] inView:self.textView];
+        [[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
+    }
 }
 
 @end
