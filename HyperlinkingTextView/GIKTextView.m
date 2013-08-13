@@ -56,7 +56,6 @@
     [self.hitTestDelegate textView:self didReceiveTapGestureAtPoint:[recognizer locationInView:self] numberOfTaps:2];
 }
 
-
 - (void)handleLongPressGesture:(UIGestureRecognizer *)recognizer
 {
     if (recognizer.state == UIGestureRecognizerStateEnded)

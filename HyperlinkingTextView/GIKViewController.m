@@ -20,7 +20,8 @@
 @property (assign, nonatomic) NSInteger tappedLinkTag;
 @property (strong, nonatomic) GIKTextLink *tappedTextLink;
 
-@property (strong, nonatomic) UIMenuItem *linkMenuItem;
+@property (strong, nonatomic) UIMenuItem *cpyURLMenuItem;
+@property (strong, nonatomic) UIMenuItem *openURLMenuItem;
 
 @end
 
@@ -31,11 +32,12 @@
     [super viewDidLoad];
 
     self.textView.hitTestDelegate = self;
-    self.textView.text = @"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit er elit lamet.";
+    self.textView.text = @"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit er elit lamet. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
     
     self.textLinks = [[NSMutableArray alloc] init];
     
-    self.linkMenuItem = [[UIMenuItem alloc] initWithTitle:@"Copy Link" action:@selector(copyLink:)];
+    self.cpyURLMenuItem = [[UIMenuItem alloc] initWithTitle:@"Copy Link" action:@selector(copyLink:)];
+    self.openURLMenuItem = [[UIMenuItem alloc] initWithTitle:@"Open in Safari" action:@selector(openURL:)];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -55,7 +57,7 @@
 - (void)highlightLinks
 {
     // When running, note that "sed do eiusmod" spans multiple lines and is only partially highlighted. This is because of a limitation in UITextInput's firstRectForRange:
-    NSArray *links = @[@"ipsum dolor sit", @"you won't find me", @"sed do eiusmod", @"magna aliqua", @"ipsum dolor sit"];
+    NSArray *links = @[@"ipsum dolor sit", @"you won't find me", @"sed do eiusmod", @"magna aliqua", @"ipsum dolor sit", @"conscient to factor tum"];
 
     NSUInteger index = 1;
     for (NSString *link in links)
@@ -142,7 +144,12 @@
 
 - (void)copyLink:(id)sender
 {
-    NSLog(@"pretending we're copying %@", [self.tappedTextLink.url absoluteString]);
+    self.label.text = [NSString stringWithFormat:@"Copying URL: %@", [self.tappedTextLink.url absoluteString]];
+}
+
+- (void)openURL:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:self.tappedTextLink.url];
 }
 
 - (BOOL)gestureWasLocatedWithinTextLinkAtPoint:(CGPoint)point
@@ -186,7 +193,7 @@
         [self animateViewWithTag:self.tappedTextLink.tag];
         self.label.text = [NSString stringWithFormat:@"Long press \"%@\"", self.tappedTextLink.text];
 
-        [[UIMenuController sharedMenuController] setMenuItems:@[self.linkMenuItem]];
+        [[UIMenuController sharedMenuController] setMenuItems:@[self.cpyURLMenuItem, self.openURLMenuItem]];
         [[UIMenuController sharedMenuController] setTargetRect:[self.tappedTextLink.rectValue CGRectValue] inView:self.textView];
         [[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
     }
