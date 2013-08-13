@@ -24,7 +24,7 @@ Once we have the `CGRect` encompassing our text, we set the next startPosition a
 
 ## Gestures
 
-This latest commit replaces basic UIView touch handling in `GIKTextView` with gesture recognizers. This lets us respond differently to taps and long presses; the example provided shows the shared `UIMenuController` with an option to copy the link's underlying URL.
+This latest commit replaces basic UIView touch handling in `GIKTextView` with gesture recognizers. This lets us respond differently to single and double taps, and long presses; the example provided shows the shared `UIMenuController` with options to copy or open the link's underlying URL.
 
 ## //TODO:
 
