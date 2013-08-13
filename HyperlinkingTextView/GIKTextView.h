@@ -21,6 +21,7 @@
 @protocol GIKHitTestDelegate <NSObject>
 @optional
 
+- (void)gestureWillBeginInTextView:(GIKTextView *)textView; // do we need to do anything in our text view prior to handling an incoming gesture?
 - (void)textView:(GIKTextView *)textView didReceiveTapGestureAtPoint:(CGPoint)point;
 - (void)textView:(GIKTextView *)textView didReceiveLongPressGestureAtPoint:(CGPoint)point;
 

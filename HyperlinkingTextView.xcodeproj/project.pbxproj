@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F84AE98517B9E27000995140 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F84AE98417B9E27000995140 /* README.md */; };
 		F861D1A317A6EDDF00998C1D /* GIKTextLink.m in Sources */ = {isa = PBXBuildFile; fileRef = F861D1A217A6EDDF00998C1D /* GIKTextLink.m */; };
 		F872E60017A31CB800A3C9F9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F872E5FF17A31CB800A3C9F9 /* UIKit.framework */; };
 		F872E60217A31CB800A3C9F9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F872E60117A31CB800A3C9F9 /* Foundation.framework */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F84AE98417B9E27000995140 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
 		F861D1A117A6EDDF00998C1D /* GIKTextLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GIKTextLink.h; sourceTree = "<group>"; };
 		F861D1A217A6EDDF00998C1D /* GIKTextLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GIKTextLink.m; sourceTree = "<group>"; };
 		F872E5FC17A31CB800A3C9F9 /* HyperlinkingTextView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HyperlinkingTextView.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,6 +115,7 @@
 				F872E61117A31CB800A3C9F9 /* Default.png */,
 				F872E61317A31CB800A3C9F9 /* Default@2x.png */,
 				F872E61517A31CB800A3C9F9 /* Default-568h@2x.png */,
+				F84AE98417B9E27000995140 /* README.md */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -169,6 +172,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F84AE98517B9E27000995140 /* README.md in Resources */,
 				F872E60A17A31CB800A3C9F9 /* InfoPlist.strings in Resources */,
 				F872E61217A31CB800A3C9F9 /* Default.png in Resources */,
 				F872E61417A31CB800A3C9F9 /* Default@2x.png in Resources */,

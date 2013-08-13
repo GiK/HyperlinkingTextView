@@ -8,7 +8,7 @@
 
 #import "GIKTextView.h"
 
-@interface GIKTextView ()
+@interface GIKTextView () <UIGestureRecognizerDelegate>
 
 @end
 
@@ -50,6 +50,15 @@
     {
         [self.hitTestDelegate textView:self didReceiveLongPressGestureAtPoint:[recognizer locationInView:self]];
     }
+}
+
+
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    [self.hitTestDelegate gestureWillBeginInTextView:self];
+    return YES;
 }
 
 @end

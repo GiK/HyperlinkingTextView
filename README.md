@@ -4,11 +4,11 @@ Add hyperlink-like behaviour to substrings in a UITextView.
 
 ## What This Is
 
-A demonstration of how to implement hyperlinks in a UITextView using methods found in the UITextInput protocol. A UITextView subclass provides a callback whenever a touch is detected within its bounds.
+A simple implementation of hyperlinks in a UITextView using methods found in the UITextInput protocol. A UITextView subclass provides a callback whenever a touch is detected within its bounds.
 
 ## What This Isn't
 
-A library. Read the code, pick out the parts that are relevant to you, rock on.
+A library. Grok the code, pick out the parts that are relevant to you, rock on.
 
 ## The Juicy Bits
 
@@ -21,6 +21,10 @@ One caveat about `firstRectForRange:` - in the case where a substring spans mult
 `firstRectForRange:` takes a `UITextRange` argument which is defined by two `UITextPosition` objects. Why `UITextRange` and not more familiar primitives such as `NSRange`? According to the documentation, "some documents contain nested elements (for example, HTML tags and embedded objects) and you need to track both absolute position and position in the visible text," and "the WebKit framework, which the [iOS] text system is based on, requires that text indexes and offsets be represented by objects."
 
 Once we have the `CGRect` encompassing our text, we set the next startPosition as the ending `UITextPosition` of our `UITextRange` object.
+
+## Gestures
+
+This latest commit replaces basic UIView touch handling in `GIKTextView` with gesture recognizers. This lets us respond differently to taps and long presses; the example provided shows the shared `UIMenuController` with an option to copy the link's underlying URL.
 
 ## //TODO:
 

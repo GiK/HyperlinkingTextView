@@ -147,8 +147,6 @@
 
 - (BOOL)gestureWasLocatedWithinTextLinkAtPoint:(CGPoint)point
 {
-    [[UIMenuController sharedMenuController] setMenuItems:nil];
-    
     for (GIKTextLink *textLink in self.textLinks)
     {
         CGRect rect = [textLink.rectValue CGRectValue];
@@ -166,6 +164,11 @@
 
 
 #pragma mark - GIKHitTestDelegate
+
+- (void)gestureWillBeginInTextView:(GIKTextView *)textView
+{
+    [[UIMenuController sharedMenuController] setMenuItems:nil];
+}
 
 - (void)textView:(GIKTextView *)textView didReceiveTapGestureAtPoint:(CGPoint)point
 {
